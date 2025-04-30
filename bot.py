@@ -63,7 +63,7 @@ async def get_image(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             "-skip_frame", "nokey",
             "-i", source,
             "-frames:v", "1",
-            "-q:v", "2",
+            "-q:v", "2",  # Качество JPEG (1-31, где 2 — лучшее)
             "-y",
             temp_file
         ]
@@ -93,7 +93,7 @@ async def list_cameras(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 async def grant_access(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Добавляет пользователя в access.conf (только для админа)"""
-    admin_id = "177324433"  # Ваш ID
+    admin_id = os.getenv("ADMIN_ID")  # Ваш ID
     if str(update.effective_user.id) != admin_id:
         await update.message.reply_text("Недостаточно прав.")
         return
